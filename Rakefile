@@ -6,8 +6,12 @@ end
 
 task :r => :racket
 
-task :haskell do
-  sh "TERM=dumb runhaskell haskell99.hs < /dev/null"
+task :haskell => :check do
+  sh "runhaskell haskell99.hs"
+end
+
+task :check do
+  sh "ghc -Werror -fno-code -Wunused-top-binds haskell99.hs"
 end
 
 task :h => :haskell
