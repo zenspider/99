@@ -3,6 +3,8 @@
 {-# OPTIONS_GHC -Wno-type-defaults -Wno-name-shadowing #-}
 
 import Test.HUnit
+import System.IO (stderr)
+import System.Environment (getEnv)
 import System.Random (RandomGen, mkStdGen, randomRs)
 import qualified Data.List as L (groupBy, nub, permutations, sort, subsequences, sortOn)
 import qualified Data.Set as Set (toList, fromList)
@@ -292,8 +294,14 @@ tests =
 
     ]
 
-main :: IO Counts
-main = runTestTT tests
+runTests :: Test -> IO (Counts, Int)
+runTests tests = do
+  term <- getEnv "TERM"
+  let smart = "dumb" /= term
+  runTestText (putTextToHandle stderr smart) tests
+
+main :: IO (Counts, Int)
+main = runTests tests
 
 testUnencoded :: String
 testUnencoded = "aaaabccaadeeee"
