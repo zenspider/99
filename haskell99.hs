@@ -8,6 +8,7 @@ import System.Environment (getEnv)
 import System.Random (RandomGen, mkStdGen, randomRs)
 import qualified Data.List as L (groupBy, nub, permutations, sort, subsequences, sortOn)
 import qualified Data.Set as Set (toList, fromList)
+import qualified Crypto.Number.Prime as Prime (isProbablyPrime)
 
 -- 1) last element of a list
 
@@ -389,19 +390,15 @@ testLSort =
 testLSortList :: [String]
 testLSortList = ["abc", "de", "fgh", "de", "ijkl", "mn", "o"]
 
--- 1 Arithmetic
 -- 31) (**) Determine whether a given integer number is prime.
---
--- Example:
---
--- * (is-prime 7)
--- T
--- Example in Haskell:
---
--- P31> isPrime 7
--- True
--- Solutions
---
+
+isPrime :: Integer -> Bool
+isPrime = Prime.isProbablyPrime
+
+testIsPrime :: Test
+testIsPrime = test [ True ~=? isPrime 7
+                   , False ~=? isPrime 4]
+
 -- 3 Problem 32
 -- (**) Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
 --
