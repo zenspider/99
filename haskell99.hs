@@ -8,7 +8,7 @@ import System.Environment (getEnv)
 import System.Random (RandomGen, mkStdGen, randomRs)
 import qualified Data.List as L (groupBy, nub, permutations, sort, subsequences, sortOn)
 import qualified Data.Set as Set (toList, fromList)
-import qualified Crypto.Number.Prime as Prime (isProbablyPrime)
+import qualified Crypto.Number.Prime as Prime (isProbablyPrime, isCoprime)
 
 -- 1) last element of a list
 
@@ -411,20 +411,17 @@ testMyGCD = test [ 9 ~=? myGCD 36 63
                  , 3 ~=? myGCD (-3) (-6)
                  , 3 ~=? myGCD (-3) 6 ]
 
--- 4 Problem 33
--- (*) Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
---
--- Example:
---
--- * (coprime 35 64)
--- T
--- Example in Haskell:
---
--- * coprime 35 64
--- True
--- Solutions
---
---
+-- Problem 33 (*) Determine whether two positive integer numbers are
+--                coprime. Two numbers are coprime if their greatest
+--                common divisor equals 1.
+
+coprime :: Integer -> Integer -> Bool
+coprime = Prime.isCoprime
+
+testCoprime :: Test
+testCoprime = test [ True  ~=? coprime 35 64
+                   , False ~=? coprime 36 64 ]
+
 -- 5 Problem 34
 -- (**) Calculate Euler's totient function phi(m).
 --
@@ -1720,6 +1717,7 @@ tests =
     , testLSort
     , testIsPrime
     , testMyGCD
+    , testCoprime
     ]
 
 runTests :: Test -> IO (Counts, Int)
