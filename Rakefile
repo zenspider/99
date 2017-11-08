@@ -15,3 +15,7 @@ task :check do
 end
 
 task :h => :haskell
+
+task :dev do
+  sh 'run_if_changed "rake h" *.hs'
+end

@@ -399,19 +399,18 @@ testIsPrime :: Test
 testIsPrime = test [ True ~=? isPrime 7
                    , False ~=? isPrime 4]
 
--- 3 Problem 32
--- (**) Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
---
--- Example:
---
--- * (gcd 36 63)
--- 9
--- Example in Haskell:
---
--- [myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6]
--- [9,3,3]
--- Solutions
---
+-- Problem 32 (**) Determine the greatest common divisor of two
+--                 positive integer numbers. Use Euclid's algorithm.
+
+myGCD :: Integer -> Integer -> Integer
+myGCD n 0 = abs n
+myGCD n m = myGCD m (n `mod` m)
+
+testMyGCD :: Test
+testMyGCD = test [ 9 ~=? myGCD 36 63
+                 , 3 ~=? myGCD (-3) (-6)
+                 , 3 ~=? myGCD (-3) 6 ]
+
 -- 4 Problem 33
 -- (*) Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
 --
@@ -1720,6 +1719,7 @@ tests =
     , testGroup
     , testLSort
     , testIsPrime
+    , testMyGCD
     ]
 
 runTests :: Test -> IO (Counts, Int)
