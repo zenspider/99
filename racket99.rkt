@@ -358,7 +358,7 @@
 ;;           * (drop '(a b c d e f g h i k) 3)
 ;;           (A B D E G H K)
 
-(define (drop l n)
+(define (my-drop l n)
   (define (inner-drop l c)
     (cond [(empty? l) empty]
           [(zero? (modulo c n)) (inner-drop (rest l) (add1 c))]
@@ -367,7 +367,7 @@
   (inner-drop l 1))
 
 (module+ test
-  (check-equal? (drop '(a b c d e f g h i k) 3)
+  (check-equal? (my-drop '(a b c d e f g h i k) 3)
                 '(a b d e g h k)))
 
 ;;    [17]P17 (*) Split a list into two parts; the length of the first part
