@@ -1,5 +1,7 @@
 #lang racket/base
 
+(require racket/list)
+
 (module+ test
   (require rackunit))
 
@@ -303,6 +305,13 @@
                 '(a b d e g h k)))
 
 ;; 17) (*) Split a list into two parts; the length of the first part
+
+(define (split xs n)
+  (list (take xs n) (drop xs n)))
+
+(module+ test
+  (check-equal? (split '(a b c d e f g h i k) 3)
+                '((a b c) (d e f g h i k))))
 
 ;;    [18]P18 (**) Extract a slice from a list.
 ;;           Given two indices, I and K, the slice is the list containing the
