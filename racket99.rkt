@@ -313,14 +313,16 @@
   (check-equal? (split '(a b c d e f g h i k) 3)
                 '((a b c) (d e f g h i k))))
 
-;;    [18]P18 (**) Extract a slice from a list.
-;;           Given two indices, I and K, the slice is the list containing the
-;;           elements between the I'th and K'th element of the original list
-;;           (both limits included). Start counting the elements with 1.
-;;           Example:
-;;           * (slice '(a b c d e f g h i k) 3 7)
-;;           (C D E F G)
-;;
+;; 18) (**) Extract a slice from a list.
+
+(define (slice xs a b)
+  (define a- (sub1 a))
+  (take (drop xs a-) (- b a-)))
+
+(module+ test
+  (check-equal? (slice '(a b c d e f g h i k) 3 7)
+                '(c d e f g)))
+
 ;;    [19]P19 (**) Rotate a list N places to the left.
 ;;           Examples:
 ;;           * (rotate '(a b c d e f g h) 3)
