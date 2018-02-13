@@ -1,6 +1,7 @@
 #lang racket/base
 
-(require rackunit)
+(module+ test
+  (require rackunit))
 
 (define empty? null?)
 (define cons? pair?)
@@ -434,8 +435,7 @@
 (module+ test
   (check-equal? (range 4 9)
                 '(4 5 6 7 8 9))
-  
-    (check-equal? (range 9 4)
+  (check-equal? (range 9 4)
                 '(9 8 7 6 5 4)))
 
 ;;    [23]P23 (**) Extract a given number of randomly selected elements from
@@ -1521,4 +1521,7 @@
 (module+ main
   ;; (require (submod ".." test))
 
+  (display "done\n"))
+
+(module+ test
   (display "done\n"))
