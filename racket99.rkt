@@ -12,16 +12,7 @@
 
 ;;; http://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html
 
-;;                         L-99: Ninety-Nine Lisp Problems
-;;
-;;   Based on a Prolog problem list by werner.hett@hti.bfh.ch
-;;
-;; Working with lists
-;;
-;;    [1]P01 (*) Find the last box of a list.
-;;           Example:
-;;           * (my-last '(a b c d))
-;;           (D)
+;; 1) (*) Find the last box of a list.
 
 (define (my-last l)
   (if (or (empty? l) (empty? (rest l)))
@@ -36,10 +27,7 @@
   (check-equal? (my-last '(a b c d))
                 '(d)))
 
-;;    [2]P02 (*) Find the last but one box of a list.
-;;           Example:
-;;           * (my-but-last '(a b c d))
-;;           (C D)
+;; 2) (*) Find the last but one box of a list.
 
 (define (my-but-last l)
   (if (or (empty? l) (empty? (rest l)) (empty? (rest (rest l))))
@@ -56,11 +44,7 @@
   (check-equal? (my-but-last '(a b c d))
                 '(c d)))
 
-;;    [3]P03 (*) Find the K'th element of a list.
-;;           The first element in the list is number 1.
-;;           Example:
-;;           * (element-at '(a b c d e) 3)
-;;           C
+;; 3) (*) Find the K'th element of a list.
 
 (define (element-at1 l n)
   (if (and (pair? l) (list? l))
@@ -89,7 +73,7 @@
   (check-exn exn:fail?
              (λ () (element-at '(a b c d e) 6))))
 
-;;    [4]P04 (*) Find the number of elements of a list.
+;; 4) (*) Find the number of elements of a list.
 
 (define (list-size l)
   (if (empty? l)
@@ -104,7 +88,7 @@
   (check-equal? (list-size '(a b c d e))
                 5))
 
-;;    [5]P05 (*) Reverse a list.
+;; 5) (*) Reverse a list.
 
 (define (reverse-list l)
   (if (empty? l)
@@ -119,8 +103,7 @@
   (check-equal? (reverse-list '(a b c d e))
                 '(e d c b a)))
 
-;;    [6]P06 (*) Find out whether a list is a palindrome.
-;;           A palindrome can be read forward or backward; e.g. (x a m a x).
+;; 6) (*) Find out whether a list is a palindrome.
 
 (define (palindrome? l)
   (equal? l (reverse-list l)))
@@ -131,14 +114,7 @@
   (check-true  (palindrome? '(a b a)))
   (check-false (palindrome? '(a b))))
 
-;;    [7]P07 (**) Flatten a nested list structure.
-;;           Transform a list, possibly holding lists as elements into a
-;;           `flat' list by replacing each list with its elements
-;;           (recursively).
-;;           Example:
-;;           * (my-flatten '(a (b (c d) e)))
-;;           (A B C D E)
-;;           Hint: Use the predefined functions list and append.
+;; 7) (**) Flatten a nested list structure.
 
 (define (my-flatten l)
   (cond [(empty? l) empty]
@@ -158,13 +134,7 @@
   (check-equal? (my-flatten '(a (b (c d) e)))
                 '(a b c d e)))
 
-;;    [8]P08 (**) Eliminate consecutive duplicates of list elements.
-;;           If a list contains repeated elements they should be replaced
-;;           with a single copy of the element. The order of the elements
-;;           should not be changed.
-;;           Example:
-;;           * (compress '(a a a a b c c a a d e e e e))
-;;           (A B C A D E)
+;; 8) (**) Eliminate consecutive duplicates of list elements.
 
 (define (compress l)
   (cond [(empty? l) empty]
@@ -182,12 +152,7 @@
   (check-equal? (compress '(a a a b b b c c c a a))
                 '(a b c a)))
 
-;;    [9]P09 (**) Pack consecutive duplicates of list elements into sublists.
-;;           If a list contains repeated elements they should be placed in
-;;           separate sublists.
-;;           Example:
-;;           * (pack '(a a a a b c c a a d e e e e))
-;;           ((A A A A) (B) (C C) (A A) (D) (E E E E))
+;; 9) (**) Pack consecutive duplicates of list elements into sublists.
 
 (define (pack1 l)
   (define (inner-pack l curr result)
@@ -229,14 +194,7 @@
   (check-equal? (pack3 '(a a a a b c c a a d e e e e))
                 '((a a a a) (b) (c c) (a a) (d) (e e e e))))
 
-;;    [10]P10 (*) Run-length encoding of a list.
-;;           Use the result of problem P09 to implement the so-called
-;;           run-length encoding data compression method. Consecutive
-;;           duplicates of elements are encoded as lists (N E) where N is the
-;;           number of duplicates of the element E.
-;;           Example:
-;;           * (encode '(a a a a b c c a a d e e e e))
-;;           ((4 A) (1 B) (2 C) (2 A) (1 D)(4 E))
+;; 10) (*) Run-length encoding of a list.
 
 (define (encode1 l)
   (define (inner-encode l)
@@ -254,14 +212,7 @@
   (check-equal? (encode2 '(a a a a b c c a a d e e e e))
                 '((4 a) (1 b) (2 c) (2 a) (1 d) (4 e))))
 
-;;    [11]P11 (*) Modified run-length encoding.
-;;           Modify the result of problem P10 in such a way that if an
-;;           element has no duplicates it is simply copied into the result
-;;           list. Only elements with duplicates are transferred as (N E)
-;;           lists.
-;;           Example:
-;;           * (encode-modified '(a a a a b c c a a d e e e e))
-;;           ((4 A) B (2 C) (2 A) D (4 E))
+;; 11) (*) Modified run-length encoding.
 
 (define (encode-modified l)
   (define encoder (lambda (l)
@@ -273,9 +224,7 @@
   (check-equal? (encode-modified '(a a a a b c c a a d e e e e))
                 '((4 a) b (2 c) (2 a) d (4 e))))
 
-;;    [12]P12 (**) Decode a run-length encoded list.
-;;           Given a run-length code list generated as specified in problem
-;;           P11. Construct its uncompressed version.
+;; 12) (**) Decode a run-length encoded list.
 
 (define (decode l)
   (cond [(empty? l) empty]
@@ -292,15 +241,7 @@
   (check-equal? (decode '((4 a) b (2 c) (2 a) d (4 e)))
                 '(a a a a b c c a a d e e e e)))
 
-;;    [13]P13 (**) Run-length encoding of a list (direct solution).
-;;           Implement the so-called run-length encoding data compression
-;;           method directly. I.e. don't explicitly create the sublists
-;;           containing the duplicates, as in problem P09, but only count
-;;           them. As in problem P11, simplify the result list by replacing
-;;           the singleton lists (1 X) by X.
-;;           Example:
-;;           * (encode-direct '(a a a a b c c a a d e e e e))
-;;           ((4 A) B (2 C) (2 A) D (4 E))
+;; 13) (**) Run-length encoding of a list (direct solution).
 
 (define (encode-direct l)
   (define (inner-encode l r)
@@ -320,10 +261,7 @@
   (check-equal? (encode-direct '(a a a a b c c a a d e e e e))
                 '((4 a) b (2 c) (2 a) d (4 e))))
 
-;;    [14]P14 (*) Duplicate the elements of a list.
-;;           Example:
-;;           * (dupli '(a b c c d))
-;;           (A A B B C C C C D D)
+;; 14) (*) Duplicate the elements of a list.
 
 (define (dupli l)
   (cond [(empty? l) empty]
@@ -335,10 +273,7 @@
   (check-equal? (dupli '(a b c c d))
                 '(a a b b c c c c d d)))
 
-;;    [15]P15 (**) Replicate the elements of a list a given number of times.
-;;           Example:
-;;           * (repli '(a b c) 3)
-;;           (A A A B B B C C C)
+;; 15) (**) Replicate the elements of a list a given number of times.
 
 (define (repli l n)
   (define (build s n)
@@ -353,10 +288,7 @@
   (check-equal? (repli '(a b c) 3)
                 '(a a a b b b c c c)))
 
-;;    [16]P16 (**) Drop every N'th element from a list.
-;;           Example:
-;;           * (drop '(a b c d e f g h i k) 3)
-;;           (A B D E G H K)
+;; 16) (**) Drop every N'th element from a list.
 
 (define (my-drop l n)
   (define (inner-drop l c)
@@ -370,13 +302,8 @@
   (check-equal? (my-drop '(a b c d e f g h i k) 3)
                 '(a b d e g h k)))
 
-;;    [17]P17 (*) Split a list into two parts; the length of the first part
-;;           is given.
-;;           Do not use any predefined predicates.
-;;           Example:
-;;           * (split '(a b c d e f g h i k) 3)
-;;           ( (A B C) (D E F G H I K))
-;;
+;; 17) (*) Split a list into two parts; the length of the first part
+
 ;;    [18]P18 (**) Extract a slice from a list.
 ;;           Given two indices, I and K, the slice is the list containing the
 ;;           elements between the I'th and K'th element of the original list
@@ -393,11 +320,8 @@
 ;;           (G H A B C D E F)
 ;;           Hint: Use the predefined functions length and append, as well as
 ;;           the result of problem P17.
-;;
-;;    [20]P20 (*) Remove the K'th element from a list.
-;;           Example:
-;;           * (remove-at '(a b c d) 2)
-;;           (A C D)
+
+;; 20) (**) Remove the K'th element from a list.
 
 (define (remove-at l n)
   (cond ((= n 1) (cdr l))
@@ -407,10 +331,7 @@
   (check-equal? (remove-at '(a b c d) 2)
                 '(a c d)))
 
-;;    [21]P21 (*) Insert an element at a given position into a list.
-;;           Example:
-;;           * (insert-at 'alfa '(a b c d) 2)
-;;           (A ALFA B C D)
+;; 21) (*) Insert an element at a given position into a list.
 
 (define (insert-at x l n)
   (cond ((= n 1) (cons x l))
@@ -420,12 +341,7 @@
   (check-equal? (insert-at 'alfa '(a b c d) 2)
                 '(a alfa b c d)))
 
-;;    [22]P22 (*) Create a list containing all integers within a given range.
-;;           If first argument is smaller than second, produce a list in
-;;           decreasing order.
-;;           Example:
-;;           * (range 4 9)
-;;           (4 5 6 7 8 9)
+;; 22) (*) Create a list containing all integers within a given range.
 
 (define (range n m)
   (cond ((< n m) (cons n (range (add1 n) m)))
