@@ -5,13 +5,6 @@
 (module+ test
   (require rackunit))
 
-(define empty? null?)
-(define cons? pair?)
-(define first  car)
-(define second cadr)
-(define rest   cdr)
-(define empty  '())
-
 ;;; http://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html
 
 ;; 1) (*) Find the last box of a list.
