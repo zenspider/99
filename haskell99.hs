@@ -422,8 +422,7 @@ testCoprime :: Test
 testCoprime = test [ True  ~=? coprime 35 64
                    , False ~=? coprime 36 64 ]
 
--- 5 Problem 34
--- (**) Calculate Euler's totient function phi(m).
+-- Problem 34 (**) Calculate Euler's totient function phi(m).
 --
 -- Euler's so-called totient function phi(m) is defined as the number of positive integers r (1 <= r < m) that are coprime to m.
 --
@@ -1583,9 +1582,9 @@ testCoprime = test [ True  ~=? coprime 35 64
 --
 --        Problem statement                 Solution
 --
---         .  .  4 | 8  .  . | .  1  7	     9  3  4 | 8  2  5 | 6  1  7
+--         .  .  4 | 8  .  . | .  1  7          9  3  4 | 8  2  5 | 6  1  7
 --                 |         |                          |         |
---         6  7  . | 9  .  . | .  .  .	     6  7  2 | 9  1  4 | 8  5  3
+--         6  7  . | 9  .  . | .  .  .          6  7  2 | 9  1  4 | 8  5  3
 --                 |         |                          |         |
 --         5  .  8 | .  3  . | .  .  4          5  1  8 | 6  3  7 | 9  2  4
 --         --------+---------+--------          --------+---------+--------
@@ -1595,9 +1594,9 @@ testCoprime = test [ True  ~=? coprime 35 64
 --                 |         |                          |         |
 --         .  .  1 | .  6  9 | .  .  5          7  8  1 | 2  6  9 | 4  3  5
 --         --------+---------+--------          --------+---------+--------
---         1  .  . | .  8  . | 3  .  6	     1  9  7 | 5  8  2 | 3  4  6
+--         1  .  . | .  8  . | 3  .  6          1  9  7 | 5  8  2 | 3  4  6
 --                 |         |                          |         |
---         .  .  . | .  .  6 | .  9  1	     8  5  3 | 4  7  6 | 2  9  1
+--         .  .  . | .  .  6 | .  9  1          8  5  3 | 4  7  6 | 2  9  1
 --                 |         |                          |         |
 --         2  4  . | .  .  1 | 5  .  .          2  4  6 | 3  9  1 | 5  7  8
 -- Every spot in the puzzle belongs to a (horizontal) row and a (vertical) column, as well as to one single 3x3 square (which we call "square" for short). At the beginning, some of the spots carry a single-digit number between 1 and 9. The problem is to fill the missing spots with digits in such a way that every number between 1 and 9 appears exactly once in each row, in each column, and in each square.
