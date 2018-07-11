@@ -425,20 +425,13 @@ testCoprime = test [ True  ~=? coprime 35 64
 -- Problem 34 (**) Calculate Euler's totient function phi(m).
 --
 -- Euler's so-called totient function phi(m) is defined as the number of positive integers r (1 <= r < m) that are coprime to m.
---
--- Example: m = 10: r = 1,3,7,9; thus phi(m) = 4. Note the special case: phi(1) = 1.
---
--- Example:
---
--- * (totient-phi 10)
--- 4
--- Example in Haskell:
---
--- * totient 10
--- 4
--- Solutions
---
---
+
+totient :: Integer -> Integer
+totient n = sum [ 1 | x <- [1..n], coprime x n ]
+
+testTotient :: Test
+testTotient = test [ 4 ~=? totient 10 ]
+
 -- 6 Problem 35
 -- (**) Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
 --
@@ -1717,6 +1710,7 @@ tests =
     , testIsPrime
     , testMyGCD
     , testCoprime
+    , testTotient
     ]
 
 runTests :: Test -> IO (Counts, Int)
