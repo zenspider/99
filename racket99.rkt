@@ -14,6 +14,11 @@
       l
       (my-last (rest l))))
 
+(set! my-last (lambda (l) (if (empty? l) l (last-pair l))))
+
+(set! my-last last)
+;; (set! my-last last-pair)
+
 (module+ test
   (check-equal? (my-last '())
                 '())
