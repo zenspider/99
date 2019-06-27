@@ -6,7 +6,7 @@ import Test.HUnit
 import System.IO (stderr)
 import System.Environment (getEnv)
 import System.Random (RandomGen, mkStdGen, randomRs)
-import qualified Data.List as L (groupBy, nub, permutations, sort, subsequences, sortOn)
+import qualified Data.List as L (group, groupBy, nub, permutations, sort, subsequences, sortOn)
 import qualified Data.Set as Set (toList, fromList)
 import qualified Crypto.Number.Prime as Prime (isProbablyPrime, isCoprime)
 
@@ -430,7 +430,8 @@ totient :: Integer -> Integer
 totient n = sum [ 1 | x <- [1..n], coprime x n ]
 
 testTotient :: Test
-testTotient = test [ 4 ~=? totient 10 ]
+testTotient = test [ 4 ~=? totient 10
+                   , 8 ~=? totient 20 ]
 
 -- 6 Problem 35
 -- (**) Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
@@ -444,8 +445,14 @@ testTotient = test [ 4 ~=? totient 10 ]
 -- > primeFactors 315
 -- [3, 3, 5, 7]
 -- Solutions
---
---
+
+primeFactors :: Int -> [Int]
+primeFactors n = [1]
+
+testPrimeFactors :: Test
+testPrimeFactors = test [ [3,3,5,7] ~=? primeFactors 315
+                        ]
+
 -- 7 Problem 36
 -- (**) Determine the prime factors of a given positive integer.
 --
@@ -456,7 +463,14 @@ testTotient = test [ 4 ~=? totient 10 ]
 -- * (prime-factors-mult 315)
 -- ((3 2) (5 1) (7 1))
 -- Example in Haskell:
---
+
+primeFactorsMult :: Int -> [(Int,Int)]
+primeFactorsMult n = fmap (\ns -> (head ns, length ns)) $ L.group (primeFactors n)
+
+testPrimeFactorsMult :: Test
+testPrimeFactorsMult = test [[(3,2),(5,1),(7,1)] ~=? primeFactorsMult 315
+                            ]
+
 -- *Main> prime_factors_mult 315
 -- [(3,2),(5,1),(7,1)]
 -- Solutions
@@ -1711,6 +1725,8 @@ tests =
     , testMyGCD
     , testCoprime
     , testTotient
+    , testPrimeFactors
+    , testPrimeFactorsMult
     ]
 
 runTests :: Test -> IO (Counts, Int)
